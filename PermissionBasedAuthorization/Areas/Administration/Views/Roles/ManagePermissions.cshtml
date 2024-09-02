@@ -1,0 +1,60 @@
+﻿@model PermissionsFormViewModel
+
+@{
+    ViewData["Title"] = "Manage Permissions";
+}
+
+<form asp-action="ManagePermissions" method="post">
+    <input type="hidden" asp-for="RoleId" />
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>@Model.RoleName</h2>
+            Add/Remove Permissions
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var module in Model.RoleClaims)
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>@module.Key</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Permission</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < module.Value.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check m-1">
+                                                        <input type="hidden" name="RoleClaims[@module.Key][@i].DisplayValue" value="@module.Value[i].DisplayValue" />
+                                                        <input type="checkbox" name="RoleClaims[@module.Key][@i].IsSelected" value="true" class="form-check-input" @(module.Value[i].IsSelected ? "checked" : "") />
+                                                        <input type="hidden" name="RoleClaims[@module.Key][@i].IsSelected" value="false" />
+                                                    </div>
+                                                </td>
+                                                <td>@module.Value[i].DisplayValue.Split('.').Last()</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
