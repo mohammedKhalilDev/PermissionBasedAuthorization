@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuthorization.Controllers.Base;
-using PermissionBasedAuthorization.Core.Entities;
 using PermissionBasedAuthorization.Models.Identity;
-using System;
 
 namespace PermissionBasedAuthorization.Controllers
 {
@@ -14,11 +11,11 @@ namespace PermissionBasedAuthorization.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
+
         }
 
         public IActionResult Index()

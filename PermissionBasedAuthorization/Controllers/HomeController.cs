@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using PermissionBasedAuthorization.Models;
 using System.Diagnostics;
 
 namespace PermissionBasedAuthorization.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

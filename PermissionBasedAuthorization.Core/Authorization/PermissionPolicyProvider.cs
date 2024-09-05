@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace PermissionBasedAuthorization.Filters
+namespace PermissionBasedAuthorization.Core.Authorization
 {
     public class PermissionPolicyProvider : IAuthorizationPolicyProvider
     {

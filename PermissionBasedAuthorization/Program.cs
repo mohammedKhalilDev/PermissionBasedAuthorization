@@ -2,41 +2,30 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
+using PermissionBasedAuthorization.Core.Authorization;
+using PermissionBasedAuthorization.Core.Authorization.Module;
 using PermissionBasedAuthorization.Core.Entities;
-using PermissionBasedAuthorization.Filters;
+using PermissionBasedAuthorization.Core.Localization;
 using PermissionBasedAuthorization.Infrastructure.Context;
+using PermissionBasedAuthorization.Modules;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAuthorization();
-builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(o =>
-{
-    o.Password.RequireDigit = false;
-    o.Password.RequireLowercase = false;
-    o.Password.RequireUppercase = false;
-    o.Password.RequireNonAlphanumeric = false;
-    o.Password.RequiredLength = 4;
-})
-       .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddControllersWithViews();
-
-builder.Services.Configure<SecurityStampValidatorOptions>(options =>
-{
-    options.ValidationInterval = TimeSpan.Zero;
-});
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddLocalizationServices();
+builder.Services.AddAuthorizationServices();
 
 var app = builder.Build();
 
@@ -52,6 +41,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.AddLocalizationMiddlewares();
 
 app.UseAuthorization();
 

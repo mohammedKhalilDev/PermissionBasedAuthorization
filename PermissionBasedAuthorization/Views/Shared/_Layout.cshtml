@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization
+@{
+    var isRTL = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +12,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PermissionBasedAuthorization.styles.css" asp-append-version="true" />
+    @if (isRTL)
+    {
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    }
 </head>
 <body>
     <header>
@@ -33,6 +42,9 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div class="p-4">
+                <partial name="_SelectLanguage" />
             </div>
         </nav>
     </header>

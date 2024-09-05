@@ -2,13 +2,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using PermissionBasedAuthorization.Areas.Administration.Models.Users;
 
 
 namespace PermissionBasedAuthorization.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class UsersController : BaseController
     {
         private readonly UserManager<AppUser> _userManager;
