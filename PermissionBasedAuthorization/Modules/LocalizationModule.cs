@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PermissionBasedAuthorization.Core.Authorization.Module
+namespace PermissionBasedAuthorization.Authorization.Module
 {
     public static class LocalizationSetup
     {
