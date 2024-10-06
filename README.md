@@ -1,9 +1,11 @@
-Implement Permission Based Authorization in controllers and views using identity and clean architecture
 
---used 
-- EntityFrameWork
+--techs used in the repo  
+
+- Entity FrameWork
 - Identity
 - clean architicture
-- cusstome permission based authorization
+- custom permission based authorization
 - custom razorPage
+- json based localization
+  
   
